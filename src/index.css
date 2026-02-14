@@ -1,0 +1,351 @@
+/* M&D Hijos del Rey - Sistema de Facturación Electrónica
+   Design System: Premium Enterprise / Earth Tones / Colombian DIAN Compliant
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Earth Tone Palette - Elegant & Professional */
+    --background: 40 33% 98%;
+    --foreground: 25 25% 15%;
+
+    --card: 40 30% 99%;
+    --card-foreground: 25 25% 15%;
+
+    --popover: 40 30% 99%;
+    --popover-foreground: 25 25% 15%;
+
+    /* Primary - Rich Brown */
+    --primary: 25 40% 28%;
+    --primary-foreground: 40 30% 98%;
+
+    /* Secondary - Warm Beige */
+    --secondary: 35 30% 92%;
+    --secondary-foreground: 25 30% 25%;
+
+    /* Muted - Soft Cream */
+    --muted: 35 20% 94%;
+    --muted-foreground: 25 15% 45%;
+
+    /* Accent - Soft Gold */
+    --accent: 38 60% 50%;
+    --accent-foreground: 25 30% 15%;
+
+    /* Success - Natural Green */
+    --success: 145 40% 40%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Warm Amber */
+    --warning: 38 90% 55%;
+    --warning-foreground: 25 30% 15%;
+
+    /* Destructive - Muted Red */
+    --destructive: 0 50% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Info - Professional Blue */
+    --info: 210 45% 45%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 25 40% 28%;
+
+    --radius: 0.625rem;
+
+    /* Sidebar - Corporate Style */
+    --sidebar-background: 25 35% 18%;
+    --sidebar-foreground: 35 25% 92%;
+    --sidebar-primary: 38 60% 55%;
+    --sidebar-primary-foreground: 25 30% 15%;
+    --sidebar-accent: 25 30% 25%;
+    --sidebar-accent-foreground: 35 25% 95%;
+    --sidebar-border: 25 25% 25%;
+    --sidebar-ring: 38 60% 55%;
+    --sidebar-muted: 25 20% 35%;
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(135deg, hsl(35 40% 95%) 0%, hsl(40 30% 98%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 55%) 0%, hsl(35 50% 45%) 100%);
+    --gradient-brown: linear-gradient(135deg, hsl(25 40% 32%) 0%, hsl(25 35% 22%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(25 20% 20% / 0.03);
+    --shadow-md: 0 4px 6px -1px hsl(25 20% 20% / 0.05), 0 2px 4px -2px hsl(25 20% 20% / 0.03);
+    --shadow-lg: 0 10px 15px -3px hsl(25 20% 20% / 0.06), 0 4px 6px -4px hsl(25 20% 20% / 0.04);
+    --shadow-xl: 0 20px 25px -5px hsl(25 20% 20% / 0.08), 0 8px 10px -6px hsl(25 20% 20% / 0.04);
+    --shadow-gold: 0 4px 14px -3px hsl(38 60% 50% / 0.3);
+    --shadow-card: 0 1px 3px 0 hsl(25 20% 20% / 0.04), 0 1px 2px -1px hsl(25 20% 20% / 0.04);
+  }
+
+  .dark {
+    --background: 25 25% 10%;
+    --foreground: 35 25% 92%;
+
+    --card: 25 25% 12%;
+    --card-foreground: 35 25% 92%;
+
+    --popover: 25 25% 12%;
+    --popover-foreground: 35 25% 92%;
+
+    --primary: 38 55% 55%;
+    --primary-foreground: 25 30% 10%;
+
+    --secondary: 25 20% 20%;
+    --secondary-foreground: 35 25% 92%;
+
+    --muted: 25 20% 18%;
+    --muted-foreground: 35 15% 60%;
+
+    --accent: 38 50% 45%;
+    --accent-foreground: 35 25% 95%;
+
+    --success: 145 40% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 80% 50%;
+    --warning-foreground: 25 30% 10%;
+
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --info: 210 45% 55%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 25 20% 22%;
+    --input: 25 20% 22%;
+    --ring: 38 55% 55%;
+
+    --sidebar-background: 25 30% 8%;
+    --sidebar-foreground: 35 25% 90%;
+    --sidebar-primary: 38 60% 55%;
+    --sidebar-primary-foreground: 25 30% 10%;
+    --sidebar-accent: 25 25% 15%;
+    --sidebar-accent-foreground: 35 25% 95%;
+    --sidebar-border: 25 20% 15%;
+    --sidebar-ring: 38 60% 55%;
+    --sidebar-muted: 25 15% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl;
+  }
+}
+
+@layer components {
+  /* Premium Card Styles */
+  .card-premium {
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .card-premium:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* KPI Card */
+  .card-kpi {
+    @apply bg-card border border-border rounded-xl p-6;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Glass Effect */
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Status Badges */
+  .badge-success {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background-color: hsl(var(--success) / 0.1);
+    color: hsl(var(--success));
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background-color: hsl(var(--warning) / 0.15);
+    color: hsl(var(--warning));
+  }
+
+  .badge-destructive {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background-color: hsl(var(--destructive) / 0.1);
+    color: hsl(var(--destructive));
+  }
+
+  .badge-info {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background-color: hsl(var(--info) / 0.1);
+    color: hsl(var(--info));
+  }
+
+  .badge-neutral {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground;
+  }
+
+  /* Table Styles */
+  .table-premium {
+    @apply w-full text-sm;
+  }
+
+  .table-premium thead {
+    @apply bg-muted/50;
+  }
+
+  .table-premium th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+  }
+
+  .table-premium td {
+    @apply px-4 py-4 border-b border-border;
+  }
+
+  .table-premium tbody tr {
+    @apply transition-colors hover:bg-muted/30;
+  }
+
+  /* Input Focus States */
+  .input-premium {
+    @apply w-full px-4 py-2.5 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    @apply transition-all duration-200;
+  }
+
+  /* Sidebar Navigation Item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground/80;
+    @apply transition-all duration-200;
+  }
+
+  .nav-item:hover {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground;
+  }
+
+  .nav-item.active {
+    @apply bg-sidebar-primary text-sidebar-primary-foreground font-medium;
+    box-shadow: var(--shadow-gold);
+  }
+
+  /* Page Header */
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .page-description {
+    @apply text-muted-foreground mt-1;
+  }
+
+  /* Section Styles */
+  .section-card {
+    @apply bg-card border border-border rounded-xl overflow-hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .section-header {
+    @apply px-6 py-4 border-b border-border bg-muted/30;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-foreground;
+  }
+
+  .section-content {
+    @apply p-6;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .gradient-brown {
+    background: var(--gradient-brown);
+  }
+
+  .shadow-premium {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+}
