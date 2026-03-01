@@ -1,189 +1,161 @@
-# 📋 Factura LVL - Sistema de Facturación Electrónica
+# 🪑 M&D Hijos del Rey — Sistema de Facturación Electrónica
 
-Sistema de facturación electrónica moderno y profesional para **M&D Hijos del Rey**, empresa especializada en muebles.
+> Plataforma web de facturación electrónica moderna, con Asistente de IA integrado, diseñada para mueblería M&D Hijos del Rey. Accesible desde cualquier dispositivo, sin instalaciones.
 
----
-
-## ✨ Mejoras Implementadas
-
-### 🎨 **1. Login Mejorado**
-- ✅ **Animaciones de facturas flotantes** en el panel izquierdo
-- ✅ **Números y símbolos animados** ($, COP, FE-001, etc.)
-- ✅ **Contador de estadísticas en tiempo real** (facturas e ingresos)
-- ✅ **Animación de pulso** en el logo de la empresa
-- ✅ **Corregidos errores de ortografía** en placeholders
-
-### 🗄️ **2. Configuración de Supabase**
-- ✅ Cliente de Supabase instalado (`@supabase/supabase-js`)
-- ✅ Archivo de configuración creado (`src/lib/supabase.ts`)
-- ✅ Variables de entorno preparadas (`.env`)
-- ✅ Script SQL completo para crear todas las tablas (`supabase-setup.sql`)
-- ✅ Guía detallada paso a paso (`GUIA-SUPABASE.md`)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwindcss&logoColor=white)
 
 ---
 
-## 📦 Estructura de la Base de Datos
+## 🧾 ¿Qué es este sistema?
 
-### Tablas Creadas:
-1. **`profiles`** - Perfil de la empresa/usuario
-2. **`clients`** - Clientes de la empresa
-3. **`products`** - Catálogo de muebles y servicios
-4. **`invoices`** - Encabezados de facturas
-5. **`invoice_items`** - Detalles/ítems de cada factura
+Es una **aplicación web de facturación electrónica** pensada para negocios de muebles, aunque puede adaptarse a cualquier empresa. Permite crear, gestionar y exportar facturas de forma rápida y sencilla, ya sea desde un computador o un celular.
 
-### Características de Seguridad:
-- ✅ Row Level Security (RLS) habilitado
-- ✅ Políticas de acceso para usuarios autenticados
-- ✅ Triggers automáticos para `updated_at`
-- ✅ Índices optimizados para búsquedas rápidas
+### ¿Qué puedes hacer con esta aplicación?
+
+- 🧾 **Crear facturas** en segundos — elige el cliente, los productos y el sistema calcula totales e IVA automáticamente
+- 🤖 **Asistente de IA** — dile en español: *"hazle una factura a Juan por 2 sillas a $150.000"* y la crea sola
+- 📱 **Funciona en celular** — diseño 100% responsive, adaptado a pantallas móviles
+- 📥 **Exportar PDF** — con logo de empresa, datos del cliente y detalle de productos
+- 👥 **Gestionar clientes** — NIT, teléfono, dirección, todo en un solo lugar
+- 📦 **Catálogo de productos** — precios, impuestos y categorías organizadas
+- 📊 **Reportes y estadísticas** — ingresos mensuales, mejores clientes, cartera pendiente
+- ☁️ **Acceso desde cualquier lugar** — está en la nube, no necesita instalación
 
 ---
 
-## 🚀 Cómo Empezar
+## 🖼️ Módulos del Sistema
 
-### 1. Instalar Dependencias
-```bash
-npm install
+| Módulo | Descripción |
+|---|---|
+| **Dashboard** | KPIs en tiempo real: ingresos, facturas emitidas, clientes y productos |
+| **Facturas** | Crear, editar, cambiar estado (pagada/pendiente/vencida/anulada), exportar PDF y CSV |
+| **Asistente IA** | Crear facturas por chat en lenguaje natural usando Llama 3.3 vía Groq |
+| **Clientes** | CRUD completo con búsqueda, filtros y exportación CSV |
+| **Productos** | CRUD con categorías, precios, impuestos y stock |
+| **Reportes** | Gráficas de ingresos mensuales, distribución de estados, top clientes |
+| **Configuración** | Datos de empresa, resolución DIAN, logo, numeración y preferencias |
+
+---
+
+## 🛠️ Stack Técnico (Para Ingenieros)
+
+### Frontend
+- **React 18** + **TypeScript** — tipado estricto en toda la aplicación
+- **Vite** — bundler ultrarrápido con HMR
+- **Tailwind CSS** — estilos utilitarios con sistema de diseño personalizado (Earth Tones)
+- **shadcn/ui** — componentes accesibles basados en Radix UI
+- **React Router DOM** — navegación SPA con rutas protegidas
+- **Recharts** — gráficas interactivas para reportes
+- **jsPDF + html2canvas** — generación de PDF en el cliente
+- **Lucide React** — íconos SVG optimizados
+
+### Backend / Infraestructura
+- **Supabase** — PostgreSQL + Auth (JWT) + Storage (logos)
+- **Groq API** (Llama 3.3-70B) — modelo de lenguaje para el asistente de facturación
+- **Vercel** — deploy automático desde GitHub con CI/CD
+
+### Arquitectura
+```
+src/
+├── components/
+│   ├── dialogs/          # Diálogos: Crear/Editar Factura, Producto, Cliente, AI
+│   ├── dashboard/        # KPICard, RecentSalesTable
+│   └── ui/               # Componentes shadcn/ui
+├── contexts/             # AuthContext (Supabase session)
+├── hooks/                # useInvoices, useClients, useProducts, useSettings, ...
+├── lib/                  # supabase.ts, gemini.ts, export-utils.ts
+├── pages/                # Dashboard, Facturas, Clientes, Productos, Reportes, Config
+└── index.css             # Design tokens + utilidades globales
 ```
 
-### 2. Configurar Supabase
-Sigue la guía completa en: **[GUIA-SUPABASE.md](./GUIA-SUPABASE.md)**
+### Decisiones de diseño clave
+- **Mobile-first:** Diálogos como *bottom sheet* en móvil, navegación adaptativa, grids responsivos
+- **Hooks personalizados:** Toda la lógica de datos (CRUD, loading, error) encapsulada en hooks reutilizables
+- **Rutas protegidas:** `<ProtectedRoute>` verifica sesión activa antes de renderizar cualquier página privada
+- **Design system:** Variables CSS con paleta *Earth Tones* (warmth + profesionalismo), modo claro/oscuro listo
 
-Resumen rápido:
-1. Crea una cuenta en [Supabase](https://supabase.com)
-2. Crea un nuevo proyecto
-3. Ejecuta el script `supabase-setup.sql` en el SQL Editor
-4. Copia tus credenciales al archivo `.env`:
-   ```env
-   VITE_SUPABASE_URL=https://xxxxxxxxxxxxx.supabase.co
-   VITE_SUPABASE_ANON_KEY=tu_anon_key_aqui
-   ```
+---
 
-### 3. Iniciar el Proyecto
+## 🚀 Instalación y Ejecución Local
+
+### Prerrequisitos
+- Node.js 18+
+- npm o yarn
+- Cuenta en [Supabase](https://supabase.com)
+- API Key de [Groq](https://console.groq.com) (para el asistente IA)
+
+### Pasos
+
 ```bash
+# 1. Clonar el repositorio
+git clone https://github.com/C7Dev-77/factura-HR.git
+cd factura-HR
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus credenciales de Supabase y Groq
+
+# 4. Ejecutar en desarrollo
 npm run dev
 ```
 
-Abre [http://localhost:8080](http://localhost:8080) en tu navegador.
+La aplicación estará disponible en `http://localhost:8080`
 
----
+### Variables de entorno requeridas
 
-## 📂 Estructura del Proyecto
-
-```
-Factura LVL/
-├── src/
-│   ├── components/       # Componentes reutilizables
-│   │   ├── dialogs/      # Diálogos (Nueva factura, cliente, etc.)
-│   │   ├── login/        # Panel izquierdo del login
-│   │   └── ui/           # Componentes de Shadcn UI
-│   ├── lib/              # Utilidades y configuración
-│   │   └── supabase.ts   # 🆕 Cliente de Supabase
-│   ├── pages/            # Páginas principales
-│   │   ├── LoginPage.tsx      # 🎨 Mejorado con animaciones
-│   │   ├── DashboardPage.tsx
-│   │   ├── InvoicesPage.tsx
-│   │   ├── ClientsPage.tsx
-│   │   ├── ProductsPage.tsx
-│   │   └── ReportsPage.tsx
-│   └── App.tsx           # Router principal
-├── .env                  # 🆕 Variables de entorno (credenciales)
-├── supabase-setup.sql    # 🆕 Script de creación de DB
-└── GUIA-SUPABASE.md      # 🆕 Guía de configuración
+```env
+VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+VITE_SUPABASE_ANON_KEY=tu-anon-key
+VITE_GROQ_API_KEY=tu-groq-api-key   # Opcional, para el asistente IA
 ```
 
 ---
 
-## 🎯 Próximos Pasos (Roadmap)
+## 🗄️ Base de Datos (Supabase)
 
-### Fase 1: Autenticación Real ✅ (En Proceso)
-- [x] Configurar Supabase
-- [x] Crear tablas en la base de datos
-- [ ] Conectar login con Supabase Auth
-- [ ] Implementar registro de usuarios
-- [ ] Proteger rutas privadas
+Tablas principales:
+- `profiles` — Datos de empresa y configuración por usuario
+- `clients` — Clientes registrados
+- `products` — Catálogo de productos/servicios
+- `invoices` — Facturas emitidas
+- `invoice_items` — Ítems de cada factura
 
-### Fase 2: CRUD de Clientes
-- [ ] Crear cliente con guardado real
-- [ ] Editar cliente existente
-- [ ] Eliminar/Desactivar cliente
-- [ ] Búsqueda y filtrado en tiempo real
-
-### Fase 3: CRUD de Productos (Muebles)
-- [ ] Cambiar categorías a: Salas, Comedores, Alcobas, Oficina, Decoración
-- [ ] Crear producto con guardado real
-- [ ] Editar producto existente
-- [ ] Eliminar/Desactivar producto
-- [ ] Control de inventario
-
-### Fase 4: Facturación
-- [ ] Guardar facturas en Supabase
-- [ ] Cambio de estado (Pendiente → Pagada/Vencida/Anulada)
-- [ ] Cálculo automático de vencimiento
-- [ ] Asociar productos a facturas
-
-### Fase 5: Reportes y Análisis
-- [ ] Conectar gráficas a datos reales
-- [ ] Filtro de fechas funcional
-- [ ] Exportación de reportes a PDF
-
-### Fase 6: Exportación
-- [ ] Estandarizar a PDF (actualmente algunos usan CSV)
-- [ ] Diseño profesional de PDFs con logo
-- [ ] Envío automático por WhatsApp/Email
+Row Level Security (RLS) habilitado: cada usuario solo ve y modifica sus propios datos.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 📦 Scripts disponibles
 
-- **React 18** + **TypeScript**
-- **Vite** (Build tool ultra-rápido)
-- **Tailwind CSS** (Diseño responsivo)
-- **Shadcn UI** (Componentes premium)
-- **Supabase** (Base de datos + Autenticación)
-- **React Router** (Navegación)
-- **Lucide Icons** (Iconos modernos)
-
----
-
-## 📝 Notas Importantes
-
-⚠️ **Archivos Sensibles**:
-- El archivo `.env` NO debe subirse a GitHub (ya está en `.gitignore`)
-- Nunca compartas tu `VITE_SUPABASE_ANON_KEY` públicamente (aunque sea la pública)
-
-🎨 **Diseño**:
-- Paleta de colores tierra (Browns, Beige, Gold) para elegancia
-- Diseño adaptado a mueblería de lujo
-- Totalmente responsivo (móvil, tablet, desktop)
-
----
-
-## 🐛 Solución de Problemas
-
-### El servidor no inicia
 ```bash
-# Elimina node_modules y reinstala
-rm -rf node_modules package-lock.json
-npm install
-npm run dev
+npm run dev       # Inicia el servidor de desarrollo
+npm run build     # Genera el build de producción en /dist
+npm run preview   # Previsualiza el build de producción
+npm run lint      # Ejecuta ESLint
+npm test          # Ejecuta tests con Vitest
 ```
 
-### Las animaciones no se ven
-- Verifica que el servidor esté corriendo en `http://localhost:8080`
-- Limpia la caché del navegador (Ctrl + Shift + R)
+---
 
-### Supabase no conecta
-- Revisa el archivo GUIA-SUPABASE.md
-- Verifica las credenciales en `.env`
-- Reinicia el servidor después de cambiar `.env`
+## 🌐 Deploy
+
+El proyecto está configurado para deploy automático en **Vercel**:
+- Cada `push` a `main` dispara un nuevo deploy
+- El archivo `vercel.json` incluye la configuración de rewrites para SPA
 
 ---
 
-## 📞 Contacto
+## 👨‍💻 Desarrollado por
 
-Para soporte o preguntas sobre el sistema, contacta al desarrollador.
+**C7Dev-77** — Para M&D Hijos del Rey  
+Sistema de Facturación Electrónica — 2026
 
 ---
 
-**M&D Hijos del Rey** - Sistema de Facturación Electrónica v1.0
+> 💡 **Nota para clientes:** No necesitas saber nada de programación para usar esta herramienta. Solo necesitas un navegador web (Chrome, Firefox, Safari) y tu usuario. El equipo técnico se encarga del resto.
