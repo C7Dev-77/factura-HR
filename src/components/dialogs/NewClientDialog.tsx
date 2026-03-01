@@ -85,11 +85,11 @@ export function NewClientDialog({ open, onOpenChange, onSave, initialData }: New
             <FormInput label="Ciudad" value={form.city} onChange={(v) => update("city", v)} placeholder="Bogotá" />
           </div>
 
-          <DialogFooter className="pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <DialogFooter className="pt-4 flex flex-col-reverse sm:flex-row gap-2">
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">
               Cancelar
             </Button>
-            <Button type="submit" variant="premium" disabled={saving}>
+            <Button type="submit" variant="premium" disabled={saving} className="w-full sm:w-auto">
               {saving ? "Guardando..." : "Guardar Cliente"}
             </Button>
           </DialogFooter>

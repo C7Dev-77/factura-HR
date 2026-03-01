@@ -110,12 +110,12 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="p-6 lg:p-8 space-y-8 animate-fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Reportes</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">Reportes</h1>
+          <p className="text-muted-foreground mt-1 text-sm">
             Análisis financiero y estadísticas del negocio
           </p>
         </div>
@@ -264,7 +264,7 @@ export default function ReportsPage() {
                     <span className="text-sm font-semibold text-primary">{index + 1}</span>
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-3 sm:gap-4 justify-between mb-1">
                       <span className="font-medium text-foreground">{client.name}</span>
                       <span className="text-sm font-semibold text-foreground">{formatCurrencyCOP(client.revenue)}</span>
                     </div>

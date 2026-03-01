@@ -263,6 +263,76 @@ export function useInvoices() {
         }
     };
 
+    // Actualizar factura completa
+    const updateInvoice = async (id: string, invoiceData: InvoiceInput) => {
+        try {
+            // Calcular totales
+            let subtotal = 0;
+            let tax_amount = 0;
+
+            const itemsWithTotals = invoiceData.items.map((item) => {
+                const itemSubtotal = item.quantity * item.unit_price;
+                const itemTax = (itemSubtotal * item.tax) / 100;
+                const itemTotal = itemSubtotal + itemTax;
+                subtotal += itemSubtotal;
+                tax_amount += itemTax;
+                return { ...item, total: itemTotal };
+            });
+
+            const total_amount = subtotal + tax_amount;
+
+            // Actualizar cabecera de factura
+            const { error: invoiceError } = await supabase
+                .from('invoices')
+                .update({
+                    client_id: invoiceData.client_id,
+                    date: invoiceData.date,
+                    due_date: invoiceData.due_date,
+                    notes: invoiceData.notes || null,
+                    subtotal,
+                    tax_amount,
+                    total_amount,
+                    updated_at: new Date().toISOString(),
+                })
+                .eq('id', id);
+
+            if (invoiceError) throw invoiceError;
+
+            // Eliminar items existentes y reinsertar
+            const { error: deleteItemsError } = await supabase
+                .from('invoice_items')
+                .delete()
+                .eq('invoice_id', id);
+
+            if (deleteItemsError) throw deleteItemsError;
+
+            const itemsToInsert = itemsWithTotals.map((item) => ({
+                invoice_id: id,
+                ...item,
+            }));
+
+            const { error: itemsError } = await supabase
+                .from('invoice_items')
+                .insert(itemsToInsert);
+
+            if (itemsError) throw itemsError;
+
+            await fetchInvoices();
+
+            toast.success('Factura actualizada', {
+                description: 'Los cambios se guardaron correctamente',
+            });
+
+            return { error: null };
+        } catch (err: any) {
+            console.error('Error al actualizar factura:', err);
+            toast.error('Error al actualizar factura', {
+                description: err.message,
+            });
+            return { error: err };
+        }
+    };
+
     // Eliminar factura (soft delete)
     const deleteInvoice = async (id: string) => {
         try {
@@ -300,6 +370,7 @@ export function useInvoices() {
         error,
         fetchInvoices,
         createInvoice,
+        updateInvoice,
         updateInvoiceStatus,
         deleteInvoice,
         generateInvoiceNumber,

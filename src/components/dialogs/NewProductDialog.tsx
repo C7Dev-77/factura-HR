@@ -153,7 +153,7 @@ export function NewProductDialog({ open, onOpenChange, onSave, initialData }: Ne
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-foreground">Precio (COP) *</label>
               <input
@@ -201,11 +201,11 @@ export function NewProductDialog({ open, onOpenChange, onSave, initialData }: Ne
             </div>
           </div>
 
-          <DialogFooter className="pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <DialogFooter className="pt-4 flex flex-col-reverse sm:flex-row gap-2">
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">
               Cancelar
             </Button>
-            <Button type="submit" variant="premium" disabled={saving}>
+            <Button type="submit" variant="premium" disabled={saving} className="w-full sm:w-auto">
               {saving ? "Guardando..." : "Guardar Producto"}
             </Button>
           </DialogFooter>

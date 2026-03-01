@@ -140,19 +140,38 @@ export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState("empresa");
 
   return (
-    <div className="p-6 lg:p-8 animate-fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 animate-fade-in">
       {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Configuración</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground">Configuración</h1>
+        <p className="text-muted-foreground mt-1 text-sm">
           Administre la configuración del sistema de facturación
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Sidebar Navigation */}
+        {/* Sidebar Navigation - horizontal on mobile, vertical on desktop */}
         <div className="lg:col-span-1">
-          <nav className="bg-card border border-border rounded-xl shadow-card overflow-hidden">
+          {/* Mobile: horizontal scrollable pills */}
+          <div className="flex gap-2 overflow-x-auto pb-3 lg:hidden scrollbar-hide -mx-1 px-1">
+            {sections.map((section) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0",
+                  activeSection === section.id
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "bg-card border border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                )}
+              >
+                <section.icon className="w-4 h-4" />
+                {section.title}
+              </button>
+            ))}
+          </div>
+          {/* Desktop: vertical sidebar */}
+          <nav className="bg-card border border-border rounded-xl shadow-card overflow-hidden hidden lg:block">
             {sections.map((section) => (
               <button
                 key={section.id}
