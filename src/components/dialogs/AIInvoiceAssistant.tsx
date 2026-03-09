@@ -61,13 +61,43 @@ interface AIInvoiceAssistantProps {
 
 // ─── Detectar si el mensaje parece querer crear una factura ──────────────────
 function isInvoiceRequest(text: string): boolean {
-    const keywords = [
-        "factura", "crear", "crea", "generar", "genera", "emitir",
-        "cobrar", "cobro", "venta", "vendí", "vende", "cliente",
-        "unidades", "und", "productos", "servicio", "por valor",
+    const lower = text.toLowerCase().trim();
+
+    // Palabras de acción fuertes que casi siempre indican creación
+    const strongActionVerbs = ["crear", "crea", "generar", "genera", "emitir", "emite", "hacer", "haz", "nueva", "nuevo"];
+
+    // Patrones comunes de solicitud de factura
+    const invoicePatterns = [
+        /^factura\s+para/i,
+        /^factura\s+a\s+nombre/i,
+        /^factura\s+al\s+cliente/i,
+        /vendí/i,
+        /vender/i,
+        /\d+\s*(unidades|und|uds|piezas|pzs|cant|cantidades)/i,
+        /\d+\s*x\s+/i,
     ];
-    const lower = text.toLowerCase();
-    return keywords.some((k) => lower.includes(k));
+
+    const hasStrongAction = strongActionVerbs.some(v => lower.includes(v));
+    const matchesPattern = invoicePatterns.some(p => p.test(lower));
+
+    // Si parece una pregunta informativa (empieza con qué, cómo, etc. o tiene signo de interrogación)
+    // Pero si tiene un verbo de acción fuerte (ej: "¿Cómo puedo crear una factura?"), permitimos que pase
+    // para que la IA de extracción intente ayudar o el chat lo maneje.
+    // Sin embargo, preguntas puramente informativas deben ir al chat.
+    const isQuestion = /^(qué|que|cómo|como|cuál|cual|dónde|donde|quién|quien|para\s+qué|para\s+que)/i.test(lower) || lower.includes("?");
+
+    if (isQuestion && !hasStrongAction) {
+        return false;
+    }
+
+    // Si es un saludo corto o palabras sueltas sin contexto de acción
+    if (lower.length < 5 && !hasStrongAction) return false;
+    if (["hola", "buenos días", "buenas tardes", "hey"].includes(lower)) return false;
+
+    // Solo la palabra "factura" o "facturas" no es suficiente
+    if (lower === "factura" || lower === "facturas") return false;
+
+    return hasStrongAction || matchesPattern || (lower.includes("factura") && (lower.includes("con") || lower.includes("para")));
 }
 
 // ─── Render de markdown básico ────────────────────────────────────────────────
